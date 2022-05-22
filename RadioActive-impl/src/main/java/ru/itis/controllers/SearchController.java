@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.api.SearchApi;
+import ru.itis.dto.request.search.RoomSearchRequest;
+import ru.itis.dto.request.search.UserSearchRequest;
 import ru.itis.dto.response.RoomPageSearchResponse;
 import ru.itis.dto.response.UserPageSearchResponse;
 import ru.itis.services.SearchService;
@@ -15,14 +17,12 @@ public class SearchController implements SearchApi {
     private final SearchService searchService;
 
     @Override
-    public ResponseEntity<RoomPageSearchResponse> searchRoomsByTitleOrOwner(String search,  Integer page,
-                                                                            String streaming, String password,
-                                                                            String sort) {
-        return ResponseEntity.ok(searchService.searchRoomsByTitleOrOwner(search, page, streaming, password, sort));
+    public ResponseEntity<RoomPageSearchResponse> searchRoomsByTitleOrOwner(RoomSearchRequest roomSearchRequest) {
+        return ResponseEntity.ok(searchService.searchRoomsByTitleOrOwner(roomSearchRequest));
     }
 
     @Override
-    public ResponseEntity<UserPageSearchResponse> searchUserByNickname(String search, Integer page, String sort) {
-        return ResponseEntity.ok(searchService.searchUserByNickname(search, page, sort));
+    public ResponseEntity<UserPageSearchResponse> searchUserByNickname(UserSearchRequest userSearchRequest) {
+        return ResponseEntity.ok(searchService.searchUserByNickname(userSearchRequest));
     }
 }
