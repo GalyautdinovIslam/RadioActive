@@ -3,7 +3,6 @@ package ru.itis.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.request.search.RoomSearchRequest;
@@ -19,6 +18,7 @@ import ru.itis.repositories.UserRepository;
 import ru.itis.services.SearchService;
 import ru.itis.utils.mappers.RoomMapper;
 import ru.itis.utils.mappers.UserMapper;
+import ru.itis.utils.search.SearchUtils;
 
 import static ru.itis.constants.RadioActiveConstants.defaultSearchPageSize;
 
@@ -35,13 +35,10 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public RoomPageSearchResponse searchRoomsByTitleOrOwner(RoomSearchRequest roomSearchRequest) {
-        String sort = roomSearchRequest.getSort();
         Integer pageSize = roomSearchRequest.getPageSize();
         pageSize = pageSize != null ? pageSize : defaultSearchPageSize;
-
         PageRequest pageRequest = PageRequest.of(roomSearchRequest.getPage(), pageSize);
-        if (sort != null && sort.equals("title"))
-            pageRequest = pageRequest.withSort(Sort.by(sort));
+        pageRequest = SearchUtils.addSortingToPageRequest(pageRequest, roomSearchRequest.getSorts());
 
         String search = roomSearchRequest.getSearch();
         Page<Room> rooms = roomRepository.findAll(
@@ -59,13 +56,11 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public UserPageSearchResponse searchUserByNickname(UserSearchRequest userSearchRequest) {
-        String sort = userSearchRequest.getSort();
         Integer pageSize = userSearchRequest.getPageSize();
         pageSize = pageSize != null ? pageSize : defaultSearchPageSize;
 
         PageRequest pageRequest = PageRequest.of(userSearchRequest.getPage(), pageSize);
-        if (sort != null && sort.equals("nickname"))
-            pageRequest = pageRequest.withSort(Sort.by(sort));
+        pageRequest = SearchUtils.addSortingToPageRequest(pageRequest, userSearchRequest.getSorts());
 
         String search = userSearchRequest.getSearch();
 

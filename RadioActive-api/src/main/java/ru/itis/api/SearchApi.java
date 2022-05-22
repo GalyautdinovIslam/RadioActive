@@ -3,6 +3,7 @@ package ru.itis.api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.itis.dto.request.search.RoomSearchRequest;
@@ -15,11 +16,11 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping("api/v1/search")
 public interface SearchApi {
 
-    @GetMapping(value = "/rooms", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/rooms", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<RoomPageSearchResponse> searchRoomsByTitleOrOwner(RoomSearchRequest roomSearchRequest);
+    ResponseEntity<RoomPageSearchResponse> searchRoomsByTitleOrOwner(@RequestBody RoomSearchRequest roomSearchRequest);
 
-    @GetMapping(value = "/users", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<UserPageSearchResponse> searchUserByNickname(UserSearchRequest userSearchRequest);
+    ResponseEntity<UserPageSearchResponse> searchUserByNickname(@RequestBody UserSearchRequest userSearchRequest);
 }
