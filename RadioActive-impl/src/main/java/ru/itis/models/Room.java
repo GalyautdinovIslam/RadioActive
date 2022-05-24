@@ -38,7 +38,7 @@ public class Room extends AbstractEntity {
     private Set<User> subscribers;
 
     @Column(nullable = false)
-    private Boolean streaming;
+    private boolean streaming;
 
     @ManyToMany
     @JoinTable(name = "listening",

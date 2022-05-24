@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "account")
 public class User extends AbstractEntity {
 
-    @Column(unique = true, nullable = false, updatable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)

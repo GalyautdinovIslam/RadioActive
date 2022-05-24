@@ -1,0 +1,93 @@
+package ru.itis.services.impl;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.itis.dto.request.ChatRequest;
+import ru.itis.dto.response.ChatResponse;
+import ru.itis.exceptions.ChatNotFoundException;
+import ru.itis.exceptions.RoomNotFoundException;
+import ru.itis.exceptions.UserNotFoundException;
+import ru.itis.models.Chat;
+import ru.itis.models.Room;
+import ru.itis.models.User;
+import ru.itis.repositories.ChatRepository;
+import ru.itis.repositories.RoomRepository;
+import ru.itis.repositories.UserRepository;
+import ru.itis.services.ChatService;
+import ru.itis.utils.mappers.ChatMapper;
+
+import java.util.UUID;
+
+@RequiredArgsConstructor
+@Service
+public class ChatServiceImpl implements ChatService {
+
+    private final ChatRepository chatRepository;
+    private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
+    private final ChatMapper chatMapper;
+
+    @Override
+    public UUID createChat(ChatRequest chatRequest) {
+        User owner = userRepository.findById(chatRequest.getOwnerId()).orElseThrow(UserNotFoundException::new);
+        Room room = roomRepository.findById(chatRequest.getRoomId()).orElseThrow(RoomNotFoundException::new);
+        Chat chat = Chat.builder()
+                .owner(owner)
+                .room(room)
+                .build();
+        chat = chatRepository.save(chat);
+        return chat.getId();
+    }
+
+    @Override
+    public ChatResponse getChat(UUID chatId) {
+        return chatMapper.toChatResponse(chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new));
+    }
+
+    @Override
+    public ChatResponse updateChat(UUID chatId, ChatRequest chatRequest) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        User owner = userRepository.findById(chatRequest.getOwnerId()).orElseThrow(UserNotFoundException::new);
+        Room room = roomRepository.findById(chatRequest.getRoomId()).orElseThrow(RoomNotFoundException::new);
+        chat.setOwner(owner);
+        chat.setRoom(room);
+        return chatMapper.toChatResponse(chatRepository.save(chat));
+    }
+
+    @Override
+    public void deleteChat(UUID chatId) {
+        chatRepository.delete(chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new));
+    }
+
+    @Override
+    public ChatResponse addModerator(UUID chatId, UUID userId) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        chat.getModerators().add(user);
+        return chatMapper.toChatResponse(chatRepository.save(chat));
+    }
+
+    @Override
+    public ChatResponse deleteModerator(UUID chatId, UUID userId) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        chat.getModerators().remove(user);
+        return chatMapper.toChatResponse(chatRepository.save(chat));
+    }
+
+    @Override
+    public ChatResponse muteUser(UUID chatId, UUID userId) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        chat.getMutedUsers().add(user);
+        return chatMapper.toChatResponse(chatRepository.save(chat));
+    }
+
+    @Override
+    public ChatResponse unmuteUser(UUID chatId, UUID userId) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        chat.getMutedUsers().remove(user);
+        return chatMapper.toChatResponse(chatRepository.save(chat));
+    }
+}

@@ -1,0 +1,14 @@
+package ru.itis.exceptions;
+
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+public class RadioServiceException extends RuntimeException {
+    private final HttpStatus httpStatus;
+
+    public RadioServiceException(HttpStatus httpStatus, String message) {
+        super(message);
+        this.httpStatus = httpStatus;
+    }
+}
