@@ -1,10 +1,10 @@
-package ru.itis.controllers;
+package ru.itis.controllers.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.api.MessageApi;
+import ru.itis.api.rest.MessageApi;
 import ru.itis.dto.request.MessageRequest;
 import ru.itis.dto.response.MessageResponse;
 import ru.itis.services.MessageService;

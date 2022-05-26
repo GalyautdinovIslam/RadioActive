@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import ru.itis.dto.response.UserResponse;
 import ru.itis.dto.response.UserSearchResponse;
+import ru.itis.models.AbstractEntity;
 import ru.itis.models.User;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface UserMapper {
     }
 
     @Named("toAmount")
-    default Integer toAmount(Set<User> users) {
-        return users.size();
+    default Integer toAmount(Set<? extends AbstractEntity> entities) {
+        return entities.size();
     }
 }
