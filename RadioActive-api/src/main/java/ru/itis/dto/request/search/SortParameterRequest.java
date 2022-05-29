@@ -13,5 +13,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class SortParameterRequest {
     private String parameter;
-    private boolean desc;
+    private Boolean desc;
 }
