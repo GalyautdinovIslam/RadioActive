@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.request.MessageRequest;
 import ru.itis.dto.response.MessageResponse;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -15,7 +16,7 @@ public interface MessageApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<UUID> createMessage(@RequestBody MessageRequest messageRequest);
+    ResponseEntity<UUID> createMessage(@Valid @RequestBody MessageRequest messageRequest);
 
     @GetMapping(value = "/{message-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -24,7 +25,7 @@ public interface MessageApi {
     @PutMapping(value = "/{message-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     ResponseEntity<MessageResponse> updateMessage(@PathVariable("message-id") UUID messageId,
-                                                  @RequestBody MessageRequest messageRequest);
+                                                  @Valid @RequestBody MessageRequest messageRequest);
 
     @DeleteMapping(value = "/{message-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)

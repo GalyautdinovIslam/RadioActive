@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.request.ChatRequest;
 import ru.itis.dto.response.ChatResponse;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -15,7 +16,7 @@ public interface ChatApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<UUID> createChat(@RequestBody ChatRequest chatRequest);
+    ResponseEntity<UUID> createChat(@Valid @RequestBody ChatRequest chatRequest);
 
     @GetMapping(value = "/{chat-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -24,7 +25,7 @@ public interface ChatApi {
     @PutMapping(value = "/{chat-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     ResponseEntity<ChatResponse> updateChat(@PathVariable("chat-id") UUID chatId,
-                                            @RequestBody ChatRequest chatRequest);
+                                            @Valid @RequestBody ChatRequest chatRequest);
 
     @DeleteMapping(value = "/{chat-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)

@@ -7,6 +7,7 @@ import ru.itis.dto.request.RoomExtendedRequest;
 import ru.itis.dto.request.RoomRequest;
 import ru.itis.dto.response.RoomResponse;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -16,7 +17,7 @@ public interface RoomApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<UUID> createRoom(@RequestBody RoomRequest roomRequest);
+    ResponseEntity<UUID> createRoom(@Valid @RequestBody RoomRequest roomRequest);
 
     @GetMapping(value = "/{room-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -25,7 +26,7 @@ public interface RoomApi {
     @PutMapping(value = "/{room-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     ResponseEntity<RoomResponse> updateRoom(@PathVariable("room-id") UUID roomId,
-                                            @RequestBody RoomExtendedRequest roomExtendedRequest);
+                                            @Valid @RequestBody RoomExtendedRequest roomExtendedRequest);
 
     @DeleteMapping(value = "/{room-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)

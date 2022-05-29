@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.request.UserExtendedRequest;
 import ru.itis.dto.response.UserResponse;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -15,7 +16,7 @@ public interface UserApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<UUID> createUser(@RequestBody UserExtendedRequest userExtendedRequest);
+    ResponseEntity<UUID> createUser(@Valid @RequestBody UserExtendedRequest userExtendedRequest);
 
     @GetMapping(value = "/{user-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -24,7 +25,7 @@ public interface UserApi {
     @PutMapping(value = "/{user-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     ResponseEntity<UserResponse> updateUser(@PathVariable("user-id") UUID userId,
-                                            @RequestBody UserExtendedRequest userExtendedRequest);
+                                            @Valid @RequestBody UserExtendedRequest userExtendedRequest);
 
     @DeleteMapping(value = "/{user-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
