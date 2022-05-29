@@ -1,9 +1,9 @@
-package ru.itis.controllers;
+package ru.itis.controllers.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.api.SearchApi;
+import ru.itis.api.rest.SearchApi;
 import ru.itis.dto.request.search.RoomSearchRequest;
 import ru.itis.dto.request.search.UserSearchRequest;
 import ru.itis.dto.response.RoomPageSearchResponse;

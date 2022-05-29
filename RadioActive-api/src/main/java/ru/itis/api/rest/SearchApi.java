@@ -1,4 +1,4 @@
-package ru.itis.api;
+package ru.itis.api.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

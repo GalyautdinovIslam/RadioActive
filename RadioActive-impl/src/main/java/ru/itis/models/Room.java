@@ -40,11 +40,8 @@ public class Room extends AbstractEntity {
     @Column(nullable = false)
     private boolean streaming;
 
-    @ManyToMany
-    @JoinTable(name = "listening",
-            joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "listener_id", referencedColumnName = "id"))
-    private Set<User> listeners;
+    @OneToMany(mappedBy = "room")
+    private Set<Listener> listeners;
 
     @ManyToMany
     @JoinTable(name = "ban",

@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"owner", "room", "moderators", "mutedUsers", "messages"})
+@EqualsAndHashCode(exclude = {"owner", "room", "moderators", "mutedUsers", "messages", "listeners"})
 @SuperBuilder
 public class Chat extends AbstractEntity {
 
@@ -21,6 +21,9 @@ public class Chat extends AbstractEntity {
 
     @OneToOne(mappedBy = "chat")
     private Room room;
+
+    @OneToMany(mappedBy = "chat")
+    private Set<Listener> listeners;
 
     @ManyToMany
     @JoinTable(name = "moderation",
