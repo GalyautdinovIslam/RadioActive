@@ -1,6 +1,7 @@
 package ru.itis.services;
 
 import org.springframework.context.event.EventListener;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 import ru.itis.dto.request.ChatRequest;

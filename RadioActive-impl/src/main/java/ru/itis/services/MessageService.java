@@ -1,5 +1,6 @@
 package ru.itis.services;
 
+import org.springframework.security.core.Authentication;
 import ru.itis.dto.request.MessageRequest;
 import ru.itis.dto.response.MessageResponse;
 

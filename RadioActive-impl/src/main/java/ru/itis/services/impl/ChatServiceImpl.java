@@ -1,8 +1,9 @@
 package ru.itis.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.messaging.AbstractSubProtocolEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
@@ -99,17 +100,21 @@ public class ChatServiceImpl implements ChatService {
         chat.getMutedUsers().remove(user);
         return chatMapper.toChatResponse(chatRepository.save(chat));
     }
-// TODO
+
     @Override
     public void connectToChat(UUID chatId, String sessionId) {
         Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
-        //User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        User user = userRepository.findOneByNickname(SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName())
+                .orElseThrow(UserNotFoundException::new);
         Room room = chat.getRoom();
         Listener listener = Listener.builder()
                 .sessionId(sessionId)
                 .room(room)
                 .chat(chat)
-//                .user(user)
+                .user(user)
                 .build();
         listenerRepository.save(listener);
         //room.getListeners().add();

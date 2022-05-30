@@ -4,11 +4,18 @@ import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.itis.dto.ValidationExceptionDto;
+import ru.itis.dto.response.ValidationExceptionResponse;
 import ru.itis.exceptions.RadioServiceException;
 
 import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -57,4 +64,31 @@ public class GlobalExceptionHandler {
                         .exceptionName(exception.getClass().getSimpleName())
                         .build());
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ValidationExceptionResponse handleValidationException(MethodArgumentNotValidException exception) {
+        List<ValidationExceptionDto> errors = new ArrayList<>();
+
+        exception.getBindingResult().getAllErrors().forEach((error) -> {
+            String message = error.getDefaultMessage();
+            ValidationExceptionDto validationExceptionDto = ValidationExceptionDto.builder()
+                    .message(message)
+                    .build();
+
+            if (error instanceof FieldError) {
+                String field = ((FieldError) error).getField();
+                validationExceptionDto.setField(field);
+            } else {
+                String object = error.getObjectName();
+                validationExceptionDto.setObject(object);
+            }
+            errors.add(validationExceptionDto);
+        });
+
+        return ValidationExceptionResponse.builder()
+                .errors(errors)
+                .build();
+    }
+
 }

@@ -1,7 +1,6 @@
 package ru.itis.controllers.ws;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Controller;
 import ru.itis.api.ws.ChatWsApi;
 import ru.itis.constants.RadioActiveConstants;
@@ -22,8 +21,7 @@ public class ChatWsController implements ChatWsApi {
     }
 
     @Override
-    public Object getMessage(UUID chatId,
-                             String sessionId) {
+    public Object getMessage(UUID chatId, String sessionId) {
         chatService.connectToChat(chatId, sessionId);
         return messageService.getLastMessages(chatId, RadioActiveConstants.lastChatMessagesAmount);
     }

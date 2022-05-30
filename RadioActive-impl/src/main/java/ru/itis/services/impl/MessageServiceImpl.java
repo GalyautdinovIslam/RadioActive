@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.request.MessageRequest;
 import ru.itis.dto.response.MessageResponse;
@@ -69,13 +70,17 @@ public class MessageServiceImpl implements MessageService {
     public void deleteMessage(UUID messageId) {
         messageRepository.delete(messageRepository.findById(messageId).orElseThrow(MessageNotFoundException::new));
     }
-// TODO
+
     @Override
     public void sendMessage(UUID chatId, String content) {
-        //User sender = userRepository.findById().orElseThrow(UserNotFoundException::new);
+        User sender = userRepository.findOneByNickname(SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName())
+                .orElseThrow(UserNotFoundException::new);
         Chat chat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
         Message message = Message.builder()
-                //.sender(sender)
+                .sender(sender)
                 .chat(chat)
                 .content(content)
                 .build();
