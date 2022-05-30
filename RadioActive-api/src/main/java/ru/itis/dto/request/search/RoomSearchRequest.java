@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class RoomSearchRequest extends SearchRequest{
+public class RoomSearchRequest extends SearchRequest {
     private Boolean streaming;
     private Boolean password;
 }

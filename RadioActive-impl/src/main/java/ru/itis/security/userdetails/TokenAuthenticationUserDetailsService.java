@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.response.UserResponse;
-import ru.itis.exceptions.AuthenticationHeaderException;
+import ru.itis.exception.AuthenticationHeaderException;
 
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public class TokenAuthenticationUserDetailsService implements
                             .isEnabled(true)
                             .token(token)
                             .build())
-                    .orElseThrow(() -> new UsernameNotFoundException("Unknown user by token " + token));
+                    .orElseThrow(() -> new UsernameNotFoundException("Unknown userEntity by token " + token));
         } catch (Exception exception) {
             throw new AuthenticationHeaderException(exception.getMessage());
         }

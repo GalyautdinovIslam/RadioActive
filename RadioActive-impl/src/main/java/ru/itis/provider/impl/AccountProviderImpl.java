@@ -3,8 +3,8 @@ package ru.itis.provider.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.itis.provider.AccountProvider;
-import ru.itis.services.UserService;
-import ru.itis.services.jwt.AccountRefreshTokenService;
+import ru.itis.service.UserService;
+import ru.itis.service.jwt.AccountRefreshTokenService;
 
 @RequiredArgsConstructor
 @Component

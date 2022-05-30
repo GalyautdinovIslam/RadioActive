@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import ru.itis.security.filter.TokenAuthenticationFilter;
 import ru.itis.security.userdetails.TokenAuthenticationUserDetailsService;
-import ru.itis.services.jwt.JwtTokenService;
+import ru.itis.service.jwt.JwtTokenService;
 
 import java.util.Collections;
 
@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PERMIT_ALL = {
             "/api/v1/users/login",
-            "/api/v1/token/user-info",
+            "/api/v1/token/userEntity-info",
             "/api/v1/token/refresh"
     };
 

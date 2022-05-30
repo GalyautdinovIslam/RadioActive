@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import static ru.itis.constants.RadioActiveConstants.EMAIL_REGEX;
+import static ru.itis.constant.RadioActiveConstants.EMAIL_REGEX;
 
 @Getter
 @Setter

@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -24,7 +23,7 @@ import java.util.Properties;
 
 @RequiredArgsConstructor
 @Configuration
-@EnableJpaRepositories(basePackages = "ru.itis.repositories")
+@EnableJpaRepositories(basePackages = "ru.itis.repository")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class DataBaseConfig {
@@ -75,7 +74,7 @@ public class DataBaseConfig {
         entityManagerFactory.setJpaVendorAdapter(adapter);
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaProperties(hibernateProperties);
-        entityManagerFactory.setPackagesToScan("ru.itis.models");
+        entityManagerFactory.setPackagesToScan("ru.itis.model");
 
         return entityManagerFactory;
     }

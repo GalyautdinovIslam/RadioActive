@@ -5,10 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import ru.itis.dto.response.UserResponse;
-import ru.itis.exceptions.AuthenticationHeaderException;
-import ru.itis.services.jwt.JwtTokenService;
-import ru.itis.utils.HttpRequestUtil;
-import ru.itis.utils.HttpResponseUtil;
+import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.service.jwt.JwtTokenService;
+import ru.itis.util.HttpRequestUtil;
+import ru.itis.util.HttpResponseUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static ru.itis.constants.RadioActiveConstants.BEARER;
+import static ru.itis.constant.RadioActiveConstants.BEARER;
 
 public class TokenAuthenticationFilter extends RequestHeaderAuthenticationFilter {
 

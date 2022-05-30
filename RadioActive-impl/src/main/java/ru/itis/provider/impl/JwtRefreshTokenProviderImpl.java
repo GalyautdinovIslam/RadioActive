@@ -3,7 +3,7 @@ package ru.itis.provider.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.itis.dto.response.UserResponse;
-import ru.itis.models.RefreshTokenEntity;
+import ru.itis.model.RefreshTokenEntity;
 import ru.itis.provider.AccountProvider;
 import ru.itis.provider.JwtRefreshTokenProvider;
 

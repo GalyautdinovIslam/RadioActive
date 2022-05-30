@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.itis.dto.response.UserResponse;
-import ru.itis.exceptions.AuthenticationHeaderException;
+import ru.itis.exception.AuthenticationHeaderException;
 import ru.itis.provider.AccountProvider;
 import ru.itis.provider.JwtTokenProvider;
-import ru.itis.services.UserService;
+import ru.itis.service.UserService;
 
 import java.time.Instant;
 import java.util.Date;
@@ -62,7 +62,7 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
             String subject = claims.getSubject();
             UserService userService = accountProvider.getUserService();
             return userService.findBySubject(subject)
-                    .orElseThrow(() -> new AuthenticationHeaderException("User with this name was not found"));
+                    .orElseThrow(() -> new AuthenticationHeaderException("UserEntity with this name was not found"));
         } catch (ExpiredJwtException e) {
             throw new AuthenticationHeaderException("Token expired date error");
         }

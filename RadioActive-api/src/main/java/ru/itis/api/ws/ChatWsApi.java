@@ -7,8 +7,8 @@ import org.springframework.messaging.simp.annotation.SubscribeMapping;
 
 import java.util.UUID;
 
-import static ru.itis.constants.RadioActiveConstants.GET_MESSAGE_TOPIC;
-import static ru.itis.constants.RadioActiveConstants.SEND_MESSAGE_TOPIC;
+import static ru.itis.constant.RadioActiveConstants.GET_MESSAGE_TOPIC;
+import static ru.itis.constant.RadioActiveConstants.SEND_MESSAGE_TOPIC;
 
 public interface ChatWsApi {
     @MessageMapping(SEND_MESSAGE_TOPIC)
