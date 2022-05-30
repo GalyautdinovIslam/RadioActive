@@ -18,7 +18,7 @@ import ru.itis.repositories.UserRepository;
 import ru.itis.services.SearchService;
 import ru.itis.utils.mappers.RoomMapper;
 import ru.itis.utils.mappers.UserMapper;
-import ru.itis.utils.search.SearchUtils;
+import ru.itis.utils.search.SearchUtil;
 
 import static ru.itis.constants.RadioActiveConstants.defaultSearchPageSize;
 
@@ -38,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
         Integer pageSize = roomSearchRequest.getPageSize();
         pageSize = pageSize != null ? pageSize : defaultSearchPageSize;
         PageRequest pageRequest = PageRequest.of(roomSearchRequest.getPage(), pageSize);
-        pageRequest = SearchUtils.addSortingToPageRequest(pageRequest, roomSearchRequest.getSorts());
+        pageRequest = SearchUtil.addSortingToPageRequest(pageRequest, roomSearchRequest.getSorts());
 
         String search = roomSearchRequest.getSearch();
         Page<Room> rooms = roomRepository.findAll(
@@ -60,7 +60,7 @@ public class SearchServiceImpl implements SearchService {
         pageSize = pageSize != null ? pageSize : defaultSearchPageSize;
 
         PageRequest pageRequest = PageRequest.of(userSearchRequest.getPage(), pageSize);
-        pageRequest = SearchUtils.addSortingToPageRequest(pageRequest, userSearchRequest.getSorts());
+        pageRequest = SearchUtil.addSortingToPageRequest(pageRequest, userSearchRequest.getSorts());
 
         String search = userSearchRequest.getSearch();
 

@@ -19,7 +19,7 @@ import ru.itis.repositories.MessageRepository;
 import ru.itis.repositories.UserRepository;
 import ru.itis.services.MessageService;
 import ru.itis.utils.mappers.MessageMapper;
-import ru.itis.utils.ws.MessageDestinationUtils;
+import ru.itis.utils.ws.MessageDestinationUtil;
 
 import java.util.List;
 import java.util.UUID;
@@ -81,7 +81,7 @@ public class MessageServiceImpl implements MessageService {
                 .build();
         message = messageRepository.save(message);
 
-        messagingTemplate.convertAndSend(MessageDestinationUtils.getDestination(chatId),
+        messagingTemplate.convertAndSend(MessageDestinationUtil.getDestination(chatId),
                 messageMapper.toMessageResponse(message));
     }
 

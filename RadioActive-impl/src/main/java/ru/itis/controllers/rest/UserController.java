@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.api.rest.UserApi;
 import ru.itis.dto.request.UserExtendedRequest;
+import ru.itis.dto.request.UserRequest;
+import ru.itis.dto.response.TokenCoupleResponse;
 import ru.itis.dto.response.UserResponse;
 import ru.itis.services.UserService;
+import ru.itis.services.jwt.JwtTokenService;
 
 import java.util.UUID;
 
@@ -16,6 +19,7 @@ import java.util.UUID;
 public class UserController implements UserApi {
 
     private final UserService userService;
+    private final JwtTokenService jwtTokenService;
 
     @Override
     public ResponseEntity<UUID> createUser(UserExtendedRequest userExtendedRequest) {
@@ -50,5 +54,10 @@ public class UserController implements UserApi {
     public ResponseEntity<UserResponse> deleteRoomFromFavorite(UUID userId, UUID roomId) {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(userService.deleteRoomFromFavorite(userId, roomId));
+    }
+
+    @Override
+    public TokenCoupleResponse login(UserRequest userRequest) {
+        return jwtTokenService.generateTokenCouple(userService.login(userRequest));
     }
 }

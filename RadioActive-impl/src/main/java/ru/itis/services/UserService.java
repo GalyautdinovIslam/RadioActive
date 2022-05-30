@@ -1,8 +1,10 @@
 package ru.itis.services;
 
 import ru.itis.dto.request.UserExtendedRequest;
+import ru.itis.dto.request.UserRequest;
 import ru.itis.dto.response.UserResponse;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
@@ -17,4 +19,8 @@ public interface UserService {
     UserResponse addRoomToFavorite(UUID userId, UUID roomId);
 
     UserResponse deleteRoomFromFavorite(UUID userId, UUID roomId);
+
+    Optional<UserResponse> findBySubject(String subject);
+
+    UserResponse login(UserRequest userRequest);
 }

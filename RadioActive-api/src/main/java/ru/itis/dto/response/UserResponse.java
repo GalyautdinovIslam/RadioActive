@@ -16,6 +16,7 @@ import java.util.UUID;
 @SuperBuilder
 public class UserResponse {
 
+    private UUID id;
     private String nickname;
     private Set<UUID> uuidsOfRoomsInOwnership;
     private Set<UUID> uuidsOfRoomsInAdministration;
