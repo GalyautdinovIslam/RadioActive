@@ -1,9 +1,12 @@
 package ru.itis.api.rest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.request.UserExtendedRequest;
+import ru.itis.dto.request.UserRequest;
+import ru.itis.dto.response.TokenCoupleResponse;
 import ru.itis.dto.response.UserResponse;
 
 import javax.validation.Valid;
@@ -38,4 +41,9 @@ public interface UserApi {
     @DeleteMapping(value = "/favorites", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     ResponseEntity<UserResponse> deleteRoomFromFavorite(UUID userId, UUID roomId);
+
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    TokenCoupleResponse login(@RequestBody UserRequest userRequest);
 }

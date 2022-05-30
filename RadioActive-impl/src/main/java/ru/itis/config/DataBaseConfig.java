@@ -27,7 +27,6 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "ru.itis.repositories")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "ru.itis")
 public class DataBaseConfig {
 
     private final Environment environment;
