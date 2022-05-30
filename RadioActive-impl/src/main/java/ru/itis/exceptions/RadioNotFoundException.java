@@ -7,4 +7,5 @@ public class RadioNotFoundException extends RadioServiceException {
     public RadioNotFoundException(String message) {
         super(HttpStatus.NOT_FOUND, message);
     }
+
 }

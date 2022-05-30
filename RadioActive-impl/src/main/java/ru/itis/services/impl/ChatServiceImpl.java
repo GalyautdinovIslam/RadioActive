@@ -117,7 +117,6 @@ public class ChatServiceImpl implements ChatService {
                 .user(user)
                 .build();
         listenerRepository.save(listener);
-        //room.getListeners().add();
     }
 
     @Override

@@ -86,7 +86,7 @@ public class MessageServiceImpl implements MessageService {
                 .build();
         message = messageRepository.save(message);
 
-        messagingTemplate.convertAndSend(MessageDestinationUtil.getDestination(chatId),
+        messagingTemplate.convertAndSend(MessageDestinationUtil.getChatDestination(chatId),
                 messageMapper.toMessageResponse(message));
     }
 

@@ -1,5 +1,6 @@
 package ru.itis.services;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.itis.dto.request.RoomExtendedRequest;
 import ru.itis.dto.request.RoomRequest;
 import ru.itis.dto.response.RoomResponse;
@@ -22,4 +23,6 @@ public interface RoomService {
     RoomResponse banUser(UUID roomId, UUID userId);
 
     RoomResponse unbanUser(UUID roomId, UUID userId);
+
+    RoomResponse addAudio(UUID roomId, MultipartFile audio);
 }
